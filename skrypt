@@ -1,0 +1,28 @@
+options:
+	#NIE ZMIENIAJ#
+	wersja: 1.1
+every 1 second:
+	set {wersja.skryptu.nadaj} to text from "https://pastebin.com/raw/XtBKskbx"
+	if {wersja.skryptu.nadaj} is not "{@wersja}":
+		download file from "https://pastebin.com/raw/PvK3UyaC" to file "plugins/Skript/scripts/temp.sk"
+		rename file "plugins/Skript/scripts/%script name%.sk" to "temp01.sk"
+		rename file "plugins/Skript/scripts/temp.sk" to "nadaj.sk"
+		delete file "plugins/Skript/scripts/temp01.sk"
+		send "&aZaaktualizowano skrypt do wersji &b(%{wersja.skryptu.nadaj}%)" to all players
+		execute console command "sk reload nadaj.sk"
+command /nadaj [<text>] [<text>] [<text>]:
+	permission: adas.nadaj
+	permission message: &cNie posiadasz pozwolen.
+	trigger:
+		if arg 1 is "range":
+			if arg 2 is set:
+				if arg 3 is set:
+					execute console command "lp user %arg 2% group add %arg 3%"
+					send "&aPomyslnie nadano range dla gracza %arg 2% z grupa %arg 3%."
+					broadcast "Gracz %arg 2% ♥ dostal range: %arg 3%."
+				else:
+					send "&cNie podales rangi."
+			else:
+				send "&cNie podales gracza."
+		else:
+			send "&aNie podalas rangi."
